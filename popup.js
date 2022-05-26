@@ -2,8 +2,8 @@ window.onload = function () {
   let bg_chk = document.getElementById('background');
   let fg_chk = document.getElementById('flag');
   let fv_chk = document.getElementById('favicon');
-  let info_a = document.getElementById('info_area');
-  let info_b = document.getElementById('info_btn');
+  let info_v = document.getElementById('info_area');
+  let save_b = document.getElementById('save_btn');
 
   let config = {};
 
@@ -19,44 +19,25 @@ window.onload = function () {
     if (config['favicon'] !== 'disabled') {
       fv_chk.checked = true;
     }
+
     if (config['info'] === undefined) {
       config['info'] = {
         '123456789001': 'alpha',
         '123456789002': 'prod',
       }
     }
-    info_a.value = JSON.stringify(config['info'], null, 2);
+    info_v.value = JSON.stringify(config['info'], null, 2);
   });
 
-  bg_chk.onclick = function () {
-    console.log(`bg_chk: ${bg_chk.checked}`);
+  save_b.onclick = function () {
+    config['background'] = bg_chk.checked ? 'enabled' : 'disabled';
+    config['flag'] = fg_chk.checked ? 'enabled' : 'disabled';
+    config['favicon'] = fv_chk.checked ? 'enabled' : 'disabled';
 
-    if (bg_chk.checked) {
-      config['background'] = 'enabled';
-    } else {
-      config['background'] = 'disabled';
-    }
-
-    browser.storage.local.set({ 'config': config });
-  }
-  fv_chk.onclick = function () {
-    console.log(`fv_chk: ${fv_chk.checked}`);
-
-    if (fv_chk.checked) {
-      config['favicon'] = 'enabled';
-    } else {
-      config['favicon'] = 'disabled';
-    }
-
-    browser.storage.local.set({ 'config': config });
-  }
-  info_b.onclick = function () {
-    console.log(`info_b: ${info_a.value}`);
-
-    config['info'] = JSON.parse(info_a.value);
+    config['info'] = JSON.parse(info_v.value);
 
     browser.storage.local.set({ 'config': config });
 
-    info_a.value = JSON.stringify(config['info'], null, 2);
+    info_v.value = JSON.stringify(config['info'], null, 2);
   }
 }
