@@ -128,7 +128,7 @@ const langs = {
 const isDebug = true;
 
 // load
-chrome.storage.local.get('config', (c) => {
+browser.storage.local.get('config', (c) => {
   const config = c.config !== undefined ? c.config : {};
   if (isDebug) console.log(`config: ${JSON.stringify(config, null, 2)}`);
 
@@ -170,7 +170,7 @@ chrome.storage.local.get('config', (c) => {
 
     // region flag
     if (config['flag'] !== 'disabled') {
-      const flag = `https://nalbam.github.io/aws-navbar-extension/flags/flag-${colors[region]['country']}.png`;
+      const flag = browser.runtime.getURL(`flags/flag-${colors[region]['country']}.png`);
       document.querySelector('[data-testid="awsc-nav-regions-menu-button"]').insertAdjacentHTML("beforeBegin", `<span style="line-height:0;margin-right:0.5em;"><img src="${flag}" style="width:20px;height:20px;"></span>`);
       // document.querySelector('[data-testid="awsc-nav-regions-menu-button"]').insertAdjacentHTML("beforeBegin", `<span style="font-size:1.8em;margin-right:0.2em;">${colors[region]['emoji']}</span>`);
     }

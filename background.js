@@ -1,4 +1,4 @@
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.set({});
+browser.runtime.onInstalled.addListener(() => {
+  browser.storage.sync.set({});
   console.log('storage initialized');
 });
