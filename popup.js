@@ -7,7 +7,7 @@ window.onload = function () {
 
   let config = {};
 
-  chrome.storage.local.get('config', (c) => {
+  browser.storage.local.get('config', (c) => {
     config = c.config !== undefined ? c.config : {};
 
     if (config['background'] !== 'disabled') {
@@ -37,7 +37,7 @@ window.onload = function () {
       config['background'] = 'disabled';
     }
 
-    chrome.storage.local.set({ 'config': config });
+    browser.storage.local.set({ 'config': config });
   }
   fv_chk.onclick = function () {
     console.log(`fv_chk: ${fv_chk.checked}`);
@@ -48,14 +48,14 @@ window.onload = function () {
       config['favicon'] = 'disabled';
     }
 
-    chrome.storage.local.set({ 'config': config });
+    browser.storage.local.set({ 'config': config });
   }
   info_b.onclick = function () {
     console.log(`info_b: ${info_a.value}`);
 
     config['info'] = JSON.parse(info_a.value);
 
-    chrome.storage.local.set({ 'config': config });
+    browser.storage.local.set({ 'config': config });
 
     info_a.value = JSON.stringify(config['info'], null, 2);
   }
